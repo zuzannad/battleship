@@ -57,10 +57,15 @@ var controller = {
   guesses: 0,
 
   processGuess(guess) {
-    var location = parseGuess(guess);
+    var location = this.parseGuess(guess);
     if (location) {
+      this.guesses++;
+      var hit = model.fire(location);
+      if (hit && model.shipsSunk === model.numShips) {
+        view.displayMessage("Zatopiłeś wszystkie okręty w " + this.guesses + " próbach.");
+      }
     }
-  }
+  },
 
   parseGuess: function(guess) {
     var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
@@ -82,3 +87,14 @@ var controller = {
     return null;
   }
 };
+
+controller.processGuess("A0");
+controller.processGuess("A6");
+controller.processGuess("B6");
+controller.processGuess("C6");
+controller.processGuess("C4");
+controller.processGuess("D4");
+controller.processGuess("E4");
+controller.processGuess("B0");
+controller.processGuess("B1");
+controller.processGuess("B2");
