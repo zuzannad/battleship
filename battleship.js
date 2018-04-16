@@ -56,7 +56,7 @@ var model = {
     var locations;
     for (var i = 0; i < this.numShips; i++) {
       do {
-        locations = this.generateShips();
+        locations = this.generateShip();
       } while (this.collision(locations)); {
         this.ships[i].locations = locations;
       }
@@ -84,6 +84,18 @@ var model = {
       }
     return newShipLocations;
   },
+
+  collision: function(locations) {
+    for (var i = 0; i < this.numShips; i++) {
+      var ship = model.ships[i];
+      for (var j = 0; j < this.shipLength; i++) {
+        if (ship.locations.indexOf(locations[j]) >= 0) {
+          return true;
+        }
+      }
+    }
+    return false; 
+  }
 
 };
 
