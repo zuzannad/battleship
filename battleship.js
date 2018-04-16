@@ -61,7 +61,21 @@ var model = {
         this.ships[i].locations = locations;
       }
     }
-  }
+  },
+
+  generateShip: function() {
+    var direction = Math.floor(Math.random()*2);
+    var col, row;
+    var newShipLocations = [];
+    for (var i = 0; i < ship.length; i++) {
+      if (direction === 0) {
+
+      } else {
+
+      }
+    }
+    return newShipLocations;
+  },
 
 };
 
@@ -124,5 +138,6 @@ function handleFireButton() {
     }
   }
 
+model.generateShips();
 
 window.onload = init;
