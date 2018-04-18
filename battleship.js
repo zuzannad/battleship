@@ -19,9 +19,11 @@ var model = {
   shipLength: 3,
   shipsSunk: 0,
 
-  ships: [ { locations: ["06", "16", "26"], hits: ["", "", ""] },
-    { locations: ["24", "34", "44"], hits: ["", "", ""] },
-    { locations: ["10", "11", "12"], hits: ["", "", ""] } ],
+  ships: [
+    { locations: [0, 0, 0], hits: ["", "", ""] },
+    { locations: [0, 0, 0], hits: ["", "", ""] },
+    { locations: [0, 0, 0], hits: ["", "", ""] }
+  ],
 
   fire: function(guess) {
     for (var i = 0; i < this.numShips; i++) {
@@ -52,7 +54,7 @@ var model = {
     return true;
   },
 
-  generateShipsLocations: function() {
+  generateShipLocations: function() {
     var locations;
     for (var i = 0; i < this.numShips; i++) {
       do {
@@ -79,7 +81,7 @@ var model = {
         if (direction === 1) {
           newShipLocations.push(row + "" + (col + i));
         } else {
-          newShipLocation.push((row + 1) + "" + (col + i));
+          newShipLocations.push((row + i) + "" + col);
         }
       }
     return newShipLocations;
@@ -88,13 +90,13 @@ var model = {
   collision: function(locations) {
     for (var i = 0; i < this.numShips; i++) {
       var ship = model.ships[i];
-      for (var j = 0; j < this.shipLength; i++) {
+      for (var j = 0; j < locations.length; j++) {
         if (ship.locations.indexOf(locations[j]) >= 0) {
           return true;
         }
       }
     }
-    return false; 
+    return false;
   }
 
 };
@@ -136,10 +138,13 @@ var controller = {
 
 function init() {
 
-  var fiteButton = document.getElementById("fireButton");
+  var fireButton = document.getElementById("fireButton");
   fireButton.onclick = handleFireButton;
   var guessInput = document.getElementById("guessInput");
   guessInput.onkeypress = handleKeyPress;
+
+  model.generateShipLocations();
+  model.generateShips;
 }
 
 function handleFireButton() {
@@ -150,7 +155,7 @@ function handleFireButton() {
   guessInput.value = "";
   }
 
-  function handleKeyPress(e) {
+function handleKeyPress(e) {
     var fireButton = document.getElementById("fireButton");
     if (e.keyCode === 13) {
       fireButton.click();
@@ -158,6 +163,6 @@ function handleFireButton() {
     }
   }
 
-model.generateShips();
+
 
 window.onload = init;
