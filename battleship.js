@@ -104,7 +104,7 @@ var model = {
 var controller = {
   guesses: 0,
 
-  processGuess(guess) {
+  processGuess: function(guess) {
     var location = this.parseGuess(guess);
     if (location) {
       this.guesses++;
